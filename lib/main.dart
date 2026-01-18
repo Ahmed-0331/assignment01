@@ -1,27 +1,40 @@
-void main(){
-  double weight = 70.0;
-  double height = 1.73;
-  double bmi = BMICalculate( weight, height );
-  String category = getBMICategory(bmi);
-  print("Your BMI is:");
-  print(bmi);
-  print("Category:");
-  print(category);
+void main() {
+  Driver myDriver = Driver('Rahim', 25, 'Bike');
+  print(myDriver.getDriverInfo());
 
+  Ride myRide = MotorbikeRide();
+  showFare(myRide, 5);
 }
 
-String getBMICategory(double bmi){
-  if (bmi < 18.5 ){
-    return 'Underweight';
-  }else if (bmi >= 18.5 && bmi <= 24.9){
-    return 'Normal';
-  }else if ( bmi >= 25 && bmi <= 29.9){
-    return 'Overweight';
-  } else {
-    return 'Obese';
+class Person {
+  String _driverName;
+  int _driverAge;
+
+  Person(this._driverName, this._driverAge);
+
+  String get name => _driverName;
+  int get age => _driverAge;
+}
+class Driver extends Person {
+  String vehicleType;
+
+  Driver(String name, int age, this.vehicleType) : super(name, age);
+
+  String getDriverInfo() {
+    return 'Driver Name: $name, Age: $age, Vehicle: $vehicleType';
   }
 }
-double BMICalculate(double weight , double height){
-  double bmi = weight / (height * height);
-  return bmi;
+abstract class Ride {
+  double calculateFare(double distance);
 }
+class MotorbikeRide extends Ride {
+  @override
+  double calculateFare(double distance) {
+    return distance * 20;
+  }
+}
+void showFare(Ride ride, double distance) {
+  double fare = ride.calculateFare(distance);
+  print('Total Fare: $fare taka');
+}
+
