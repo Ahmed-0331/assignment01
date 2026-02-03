@@ -1,40 +1,108 @@
+import 'package:flutter/material.dart';
+
 void main() {
-  Driver myDriver = Driver('Rahim', 25, 'Bike');
-  print(myDriver.getDriverInfo());
-
-  Ride myRide = MotorbikeRide();
-  showFare(myRide, 5);
+  runApp(const MyApp());
 }
 
-class Person {
-  String _driverName;
-  int _driverAge;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  Person(this._driverName, this._driverAge);
-
-  String get name => _driverName;
-  int get age => _driverAge;
-}
-class Driver extends Person {
-  String vehicleType;
-
-  Driver(String name, int age, this.vehicleType) : super(name, age);
-
-  String getDriverInfo() {
-    return 'Driver Name: $name, Age: $age, Vehicle: $vehicleType';
-  }
-}
-abstract class Ride {
-  double calculateFare(double distance);
-}
-class MotorbikeRide extends Ride {
   @override
-  double calculateFare(double distance) {
-    return distance * 20;
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: CounterScreen(),
+    );
   }
 }
-void showFare(Ride ride, double distance) {
-  double fare = ride.calculateFare(distance);
-  print('Total Fare: $fare taka');
+//  Changed class name from default MyHomePage to CounterScreen
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
 }
+class _CounterScreenState extends State<CounterScreen> {
+  //  Changed variable name from _counter to count
+  int count = 0;
+
+  // Added increment function
+  void increment() {
+    setState(() {
+      count++;
+    });
+  }
+  //  Added decrement function (cannot go below 0)
+  void decrement() {
+    if (count > 0) {
+      setState(() {
+        count--;
+      });
+    }
+  }
+  //  Added reset function
+  void reset() {
+    setState(() {
+      count = 0;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Counter App',
+        style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurpleAccent,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Count',
+              style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 10),
+            //  Display count
+            Text(
+              count.toString(),
+              style: const TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
+                color: Colors.red
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Buttons row
+            Row( mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //  Decrement button
+                ElevatedButton(
+                  onPressed: decrement,
+                  child: const Icon(Icons.remove),
+                ),
+                const SizedBox(width: 15),
+
+                //  Reset button
+                ElevatedButton(
+                  onPressed: reset,
+                  child: const Text( 'Reset',
+                    style: TextStyle(fontSize: 18,color: Colors.red),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                //  Increment button
+                ElevatedButton(
+                  onPressed: increment,
+                  child: const Icon(Icons.add),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
