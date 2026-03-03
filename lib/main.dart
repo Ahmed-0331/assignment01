@@ -1,5 +1,5 @@
+import 'package:assignment01/screens/tasbih_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/tasbih_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TasbihScreen(),
+      title: 'Tasbih App',
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      home: const TasbihScreen(),
     );
   }
 }
+

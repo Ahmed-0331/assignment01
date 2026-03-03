@@ -1,8 +1,7 @@
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../widgets/counter_card.dart';
-import '../widgets/control_buttons.dart';
+import '../widgets/theme_card.dart';
 
 class TasbihScreen extends StatefulWidget {
   const TasbihScreen({super.key});
@@ -12,93 +11,82 @@ class TasbihScreen extends StatefulWidget {
 }
 
 class _TasbihScreenState extends State<TasbihScreen> {
-  int count = 46;
-  int seconds = 4;
-  Timer? timer;
+  int _counter = 46;
+  int _seconds = 40;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
-  }
-
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        seconds++;
+        _seconds++;
       });
     });
   }
-
-  void incrementCount() {
+  void _incrementCounter() {
     setState(() {
-      count++;
+      _counter++;
     });
   }
-
-  void resetCount() {
+  void _resetAll() {
     setState(() {
-      count = 0;
+      _counter = 0;
+      _seconds = 0;
     });
-  }
-
-  String formatTime(int totalSeconds) {
-    int hours = totalSeconds ~/ 3600;
-    int minutes = (totalSeconds % 3600) ~/ 60;
-    int secs = totalSeconds % 60;
-
-    return "$hours:${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}";
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF3F0F8),
-      body: SafeArea(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: const Icon(Icons.arrow_back),
+        title: const Text("Tasbih Counter"),
+        actions: [IconButton(icon: const Icon(Icons.notifications_none), onPressed: () {})],
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
-
-            // AppBar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(Icons.arrow_back),
-                  Text(
-                    "Tasbih Counter",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Icon(Icons.notifications_none),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Counter Card
             CounterCard(
-              count: count,
-              time: formatTime(seconds),
-              onTap: incrementCount,
+              counter: _counter,
+              seconds: _seconds,
+              onTap: _incrementCounter,
+              onReset: _resetAll,
             ),
-
-            const SizedBox(height: 20),
-
-            ControlButtons(
-              onReset: resetCount,
-            ),
+            const SizedBox(height: 25),
+            const Text("Add Theme", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 15),
+            Row(
+              children: const [
+                ThemeCard(color: Color(0xFFD4B5B0)),
+                SizedBox(width: 10),
+                ThemeCard(color: Color(0xFF3B5B91)),
+              ],
+            )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.deepPurple,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Calendar"),
+          BottomNavigationBarItem(icon: Icon(Icons.access_time), label: "Schedule"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: "Setting"),
+        ],
       ),
     );
   }
