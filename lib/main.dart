@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Discover App',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'Roboto', // আপনি আপনার পছন্দমতো ফন্ট দিতে পারেন
+        fontFamily: 'Roboto',
       ),
       home: const DiscoverScreen(),
     );

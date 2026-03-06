@@ -30,17 +30,15 @@ class DiscoverScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // ফিচারড ইমেজ সেকশন
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: Image.network(
-                'https://picsum.photos/800/800', // এখানে আপনার মেইন ইমেজ লিঙ্ক দিন
+                'https://picsum.photos/800/800',
                 fit: BoxFit.cover,
               ),
             ),
             const SizedBox(height: 10),
 
-            // ইউজার প্রোফাইল সেকশন
             const Row(
               children: [
                 CircleAvatar(
@@ -65,7 +63,6 @@ class DiscoverScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // ইমেজ গ্রিড সেকশন (Masonry Layout এর জন্য)
             MasonryGridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
