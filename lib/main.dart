@@ -1,5 +1,5 @@
-import 'package:assignment01/screens/tasbih_screen.dart';
 import 'package:flutter/material.dart';
+import 'discover_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tasbih App',
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const TasbihScreen(),
+      title: 'Discover App',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Roboto', // আপনি আপনার পছন্দমতো ফন্ট দিতে পারেন
+      ),
+      home: const DiscoverScreen(),
     );
   }
 }
