@@ -69,7 +69,7 @@ class DiscoverScreen extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              itemCount: 10, // আপনার আইটেম সংখ্যা
+              itemCount: 10,
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(2),
@@ -83,7 +83,6 @@ class DiscoverScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // See More বাটন
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
